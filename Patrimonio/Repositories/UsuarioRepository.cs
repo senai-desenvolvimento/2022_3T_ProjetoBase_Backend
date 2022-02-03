@@ -19,8 +19,19 @@ namespace Patrimonio.Repositories
         }
 
         public Usuario Login(string email, string senha)
-        {
-            return ctx.Usuarios.FirstOrDefault(u => u.Email == email && u.Senha == senha);
+        {   
+            // Procuramos o usuário pelo email primeiro
+            var usuario = ctx.Usuarios.FirstOrDefault(u => u.Email == email);
+
+            if(usuario != null)
+            {
+                // Com o usuário encontrado, temos a hash da senha para poder comparar com a nova entrada pelo input de senha
+                var comparado = BCrypt.Net.BCrypt.Verify(senha, usuario.Senha);
+                if(comparado)
+                    return usuario;
+            }
+
+            return null;
         }
     }
 }
