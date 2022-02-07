@@ -45,10 +45,10 @@ namespace Patrimonio
 
             services.AddCors(options =>
             {
-                options.AddPolicy("CorPolicy",
+                options.AddPolicy("CorsPolicy",
                                 builder =>
                                 {
-                                    builder.WithOrigins("http://localhost:3000")
+                                    builder.AllowAnyOrigin()
                                     .AllowAnyHeader()
                                     .AllowAnyMethod();
                                 });
@@ -122,7 +122,7 @@ namespace Patrimonio
 
             app.UseRouting();
 
-            app.UseCors("CorPolicy");
+            app.UseCors("CorsPolicy");
 
             app.UseStaticFiles(new StaticFileOptions
             {
