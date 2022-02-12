@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Patrimonio.Contexts;
 using Patrimonio.Domains;
+using Patrimonio.Utils;
 
 namespace Patrimonio.Controllers
 {
@@ -78,6 +79,9 @@ namespace Patrimonio.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
+
+            usuario.Senha = Criptografia.GerarHash(usuario.Senha);
+
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 

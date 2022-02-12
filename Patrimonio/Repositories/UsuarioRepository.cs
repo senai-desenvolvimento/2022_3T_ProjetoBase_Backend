@@ -1,6 +1,7 @@
 ﻿using Patrimonio.Contexts;
 using Patrimonio.Domains;
 using Patrimonio.Interfaces;
+using Patrimonio.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,18 @@ namespace Patrimonio.Repositories
 
         public Usuario Login(string email, string senha)
         {
-            return ctx.Usuarios.FirstOrDefault(u => u.Email == email && u.Senha == senha);
+
+            var usuario = ctx.Usuarios.FirstOrDefault(u => u.Email == email);
+
+            if(usuario != null)
+            {
+                bool confere = Criptografia.Comparar(senha, usuario.Senha);
+                if (confere)
+                    return usuario;
+            }
+
+
+            return null;
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Patrimonio
 
 
 
-            // Adiciona o servi�o do Swagger
+            // Adiciona o servico do Swagger
             // https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-5.0&tabs=visual-studio
 
             services.AddSwaggerGen(c =>
